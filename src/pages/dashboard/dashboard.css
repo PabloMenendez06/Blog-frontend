@@ -1,0 +1,88 @@
+.dashboard-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 1rem;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .dashboard-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .publication-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    transition: transform 0.2s;
+  }
+  
+  .publication-card:hover {
+    transform: scale(1.01);
+  }
+  
+  .publication-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .publication-meta {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 1rem;
+  }
+  
+  .publication-text {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  
+  .comment-list {
+    list-style: none;
+    padding-left: 1rem;
+  }
+  
+  .comment-list li {
+    margin-bottom: 0.3rem;
+    padding-left: 0.5rem;
+    border-left: 3px solid #e0e0e0;
+  }
+  
+  form {
+    margin-top: 1rem;
+  }
+  
+  .comment-input {
+    padding: 0.4rem;
+    margin-right: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .add-button {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .delete-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #e53935;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
