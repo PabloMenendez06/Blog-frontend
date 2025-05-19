@@ -19,13 +19,13 @@ function Dashboard() {
 
   useEffect(() => {
     const fetchPublications = async () => {
-      if (selectedCategory === "All") {
-        const data = await getPublications();
-        setPublications(data.slice(0, 3)); 
-      } else {
-        const data = await getPublicationsByCategory(selectedCategory);
-        setPublications(data.slice(0, 3)); 
-      }
+    if (selectedCategory === "All") {
+      const data = await getPublications();
+      setPublications(data); // <-- Mostrar todas sin límite
+    } else {
+      const data = await getPublicationsByCategory(selectedCategory);
+      setPublications(data.slice(0, 3)); 
+    }
     };
     fetchPublications();
   }, [selectedCategory]);

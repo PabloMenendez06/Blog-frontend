@@ -14,8 +14,8 @@ function PublicationDetail() {
   useEffect(() => {
     const fetchPublication = async () => {
       const data = await getPublicationsByCategory(categoryName); 
-      const publication = data.find((pub) => pub._id === id); 
-      setPublication(publication); 
+      const pub = data.find((p) => p._id === id); 
+      setPublication(pub || null);
     };
     fetchPublication();
   }, [categoryName, id]); 
@@ -24,13 +24,14 @@ function PublicationDetail() {
     e.preventDefault();
     if (!newComment.trim()) return alert("Comment cannot be empty.");
 
-    let user = userName.trim() || `Anonymous${publication.comments.length + 1}`;
+    let user = userName.trim();
+    if (!user) user = `Anonymous${publication.comments.length + 1}`;
 
     await addComment(id, { comment: newComment, user });
     setNewComment("");  
     setUserName(""); 
     const data = await getPublicationsByCategory(categoryName); 
-    const updatedPublication = data.find((pub) => pub._id === id); 
+    const updatedPublication = data.find((p) => p._id === id); 
     setPublication(updatedPublication); 
   };
 
@@ -40,7 +41,7 @@ function PublicationDetail() {
     setEditingCommentId(null);
     setEditingCommentText("");
     const data = await getPublicationsByCategory(categoryName); 
-    const updatedPublication = data.find((pub) => pub._id === id); 
+    const updatedPublication = data.find((p) => p._id === id); 
     setPublication(updatedPublication); 
   };
 
@@ -52,6 +53,19 @@ function PublicationDetail() {
   const cancelEditing = () => {
     setEditingCommentId(null);
     setEditingCommentText("");
+  };
+
+  // NUEVO: Función para eliminar comentario con confirmación
+  const handleDeleteComment = async (commentId) => {
+    if (!window.confirm("¿Estás seguro de eliminar este comentario?")) return;
+    try {
+      await fetch(`http://localhost:3001/blog/v1/comment/${commentId}`, { method: 'DELETE' });
+      const data = await getPublicationsByCategory(categoryName); 
+      const updatedPublication = data.find((p) => p._id === id); 
+      setPublication(updatedPublication);
+    } catch (error) {
+      alert("Error eliminando comentario");
+    }
   };
 
   if (!publication) return <div>Loading...</div>;
@@ -102,6 +116,13 @@ function PublicationDetail() {
                   className="edit-button"
                 >
                   Edit
+                </button>
+                <button
+                  onClick={() => handleDeleteComment(comment._id)}
+                  className="delete-button"
+                  style={{ marginLeft: "0.8rem", backgroundColor: "#e53935", color: "white" }}
+                >
+                  Delete
                 </button>
               </>
             )}
